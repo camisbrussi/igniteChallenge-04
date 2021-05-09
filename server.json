@@ -17,12 +17,12 @@
       "image": "https://storage.googleapis.com/golden-wind/bootcamp-gostack/desafio-food/food2.png"
     },
     {
-      "id": 3,
-      "name": "A la Camarón",
-      "description": "Macarrão com vegetais de primeira linha e camarão dos 7 mares.",
-      "price": "25.90",
-      "available": false,
-      "image": "https://storage.googleapis.com/golden-wind/bootcamp-gostack/desafio-food/food3.png"
+      "image": "https://pbs.twimg.com/profile_images/1318485691110666241/0qwcHKg-.jpg",
+      "name": "Miojo",
+      "price": "19,80",
+      "description": "O macarrão instantâneo é um prato típico da culinária japonesa.",
+      "available": true,
+      "id": 3
     }
   ]
 }

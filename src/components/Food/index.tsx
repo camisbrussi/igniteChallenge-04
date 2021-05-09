@@ -1,41 +1,39 @@
-import { Component } from 'react';
 import { FiEdit3, FiTrash } from 'react-icons/fi';
 
 import { Container } from './styles';
 import api from '../../services/api';
+import { useState } from 'react';
 
-class Food extends Component {
-  constructor(props) {
-    super(props);
+interface Food {
+  id: string;
+  image: string;
+  name: string;
+  description: string;
+  price: string;
+  available: boolean;
+}
 
-    const { available } = this.props.food;
-    this.state = {
-      isAvailable: available
-    };
-  }
+interface FoodProps {
+  food: Food;
+  handleEditFood: (food: Food) => void;
+  handleDelete: (foodId: string) => void;
+}
 
-  toggleAvailable = async () => {
-    const { food } = this.props;
-    const { isAvailable } = this.state;
+function Foods ({ food, handleEditFood, handleDelete}: FoodProps) {
+  const [isAvailable, setIsAvailable] = useState(food.available)
 
+  const toggleAvailable = async () => {
     await api.put(`/foods/${food.id}`, {
       ...food,
       available: !isAvailable,
     });
 
-    this.setState({ isAvailable: !isAvailable });
+    setIsAvailable(!isAvailable);
   }
 
-  setEditingFood = () => {
-    const { food, handleEditFood } = this.props;
-
+  const setEditingFood = () => {
     handleEditFood(food);
   }
-
-  render() {
-    const { isAvailable } = this.state;
-    const { food, handleDelete } = this.props;
-
     return (
       <Container available={isAvailable}>
         <header>
@@ -53,7 +51,7 @@ class Food extends Component {
             <button
               type="button"
               className="icon"
-              onClick={this.setEditingFood}
+              onClick={setEditingFood}
               data-testid={`edit-food-${food.id}`}
             >
               <FiEdit3 size={20} />
@@ -77,7 +75,7 @@ class Food extends Component {
                 id={`available-switch-${food.id}`}
                 type="checkbox"
                 checked={isAvailable}
-                onChange={this.toggleAvailable}
+                onChange={toggleAvailable}
                 data-testid={`change-status-food-${food.id}`}
               />
               <span className="slider" />
@@ -87,6 +85,5 @@ class Food extends Component {
       </Container>
     );
   }
-};
 
-export default Food;
+export default Foods;
